@@ -7,9 +7,9 @@ To deploy and configure a microservice, leverage the platform for monitoring & m
 ## Prerequisites
 
 1) Install the CF CLI
-Download and install the Cloud Foundry Command Line Interface (cf CLI): `https://github.com/cloudfoundry/cli#downloads` and make sure it works: `cf help`
+Download and install the Cloud Foundry Command Line Interface (cf CLI): [Download](https://github.com/cloudfoundry/cli#downloads) and make sure it works: `cf help`
 
-2) Make sure you have Java 7 (or later) installed and configured (https://java.com/en/download/)
+2) Make sure you have Java 7 (or later) installed and configured [Java](https://java.com/en/download/)
 
 ## Deploy the application
 
@@ -64,6 +64,8 @@ $ cf logs spring-music
 
 Reload the app page to see activity. Press Control C to stop streaming.
 
+More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
+
 ## Databases
 
 If  a database isn't available, the sample app uses a temporary in-memory database. This app supports MySQL, Postgres, Redis, and MongoDB.
@@ -116,6 +118,9 @@ name             service   plan    bound apps
 spring-music-db  p-mysql   512mb   spring-music
 ```
 
+More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html)
+
+
 ## Scaling the app
 
 As your application is running and gets more and more consumed by your customers, it’s time to scale your application to serve your app as needed.
@@ -152,3 +157,33 @@ Increase the disk limit for each app instance:
 $ cf scale spring-music -k 512M
 ```
 
+More on this can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html)
+
+### Killing one instance (optional)
+
+Now that we have two instances running, we might want to check if the automatic restart works if we kill one instance. The spring-music application provides a route which will let you kill the instance, and check if Pivotal Cloud Foundry will properly restart it.
+
+Visit your application (be sure to replace `something` with your random route) at 
+
+```
+http://spring-music-something.cfapps.io/errors/kill
+```
+
+and you will see the application being restarted by the Elastic Runtime. As you have two instances by now, the `http://spring-music-something.cfapps.io` (again, be sure to replace `something` with your random route) should still return your application, only the killed instance will be restarted.
+
+
+## Additional Steps
+
+If you’re done with this introduction, make sure you fully understand the principles of working with Pivotal Cloud Foundry. However if you want to, you might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+
+This will let you create and bind a service provided by you to an app of your choice. If you have a Papertrail Account, try if you can bind this application to your app and see your logs there!
+
+Hints: 
+
+```bash
+cf help cups
+```
+
+will provide you with the syntax for binding a log aggragation service to your application.
+
+More on this can be found at [User-Provided Service Instances](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
