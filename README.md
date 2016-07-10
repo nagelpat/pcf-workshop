@@ -142,7 +142,7 @@ As we want to use a MySQL database, let’s display which plans are available.
 $ cf marketplace -s cleardb
 ```
 
-We’ll create a service using the **free** plan for MySQL. Please use again a unique identifier for the service instance name (*mysql-db-pna*). 
+We’ll create a service using the **free** plan for MySQL. Please use free plans only :) Again, provide a unique identifier for the service instance name (e.g. *mysql-db-pna*). 
 
 ```bash
 $ cf create-service cleardb spark mysql-db-pna
@@ -173,6 +173,8 @@ mysql-db-pna     cleardb   spark   spring-music-pna
 ```
 
 **Hint:** More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html). Please note that the marketplace is extensible by your own services.
+
+**Hint:** We're using the [Pivotal Web Services](http://run.pivotal.io/), the public offering of Pivotal in this example. For your own installation of Pivotal Cloud Foundry (on VMware, Openstack, AWS, Azure, etc.), check out the [Pivotal Network](https://network.pivotal.io/) to see what Marketplace services are being available.
 
 ## Additional Steps
 
