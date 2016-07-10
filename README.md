@@ -9,7 +9,7 @@ To deploy and configure a microservice, leverage the platform for scaling, monit
 1) Install the CF CLI
 Download and install the Cloud Foundry Command Line Interface (CF CLI): [Download](https://github.com/cloudfoundry/cli#downloads) and make sure it works: `cf help`
 
-**Note:** If you don't have admin priviledges on your machine, [download](https://github.com/cloudfoundry/cli/releases) the appropriate binary.
+**Note:** If you don't have admin privileges on your machine, [download](https://github.com/cloudfoundry/cli/releases) the appropriate binary.
 
 2) *Optional* install and configure Java 7 (or later) https://java.com/en/download
 
@@ -41,13 +41,13 @@ Password>  pass
 
 2) Push the application
 
-Please give the app a name to identify it later on. E.g. *spring-music-pna* wheras *pna* is derived from **P**atrik **Na**gel. Replace *my_app_name* below accordingly, please.
+Please give the app a name to identify it later on. E.g. *spring-music-pna* whereas *pna* is derived from **P**atrik **Na**gel. Replace *my_app_name* below accordingly, please.
 
 ```bash
 $ cf push my_app_name
 ```
 
-3) Get the url from the response given on the commandline and open the sample app in your browser.
+3) Get the url from the response given on the command line and open the sample app in your browser.
 ```bash
 requested state: started
 instances: 1/1
@@ -84,13 +84,13 @@ state       since                  cpu  memory
 #1 running  2016-02-23 01:14:59 PM 0.0% 455.1M of 512M
 ```
 
-If you access your application again via the web broswer, you will have a round robin load balancing across all your app instances automatically. Sceptical? Add `/env` to the URL and watch for `CF_INSTANCE_PORT` to change while you refresh.
+If you access your application again via the web browser, you will have a round robin load balancing across all your app instances automatically. Skeptical? Add `/env` to the URL and watch for `CF_INSTANCE_PORT` to change while you refresh.
 
-**Hint:** Scaling is a matter of seconds, we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already. More on scaling can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
+**Hint:** Scaling is a matter of seconds; we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already. More on scaling can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
 
 ### Platform Integrated Application Recovery (optional)
 
-Now that we have two instances running, we might want to check if the automatic recovery i.e. restart works in case we kill one of the running instances. The spring-music application provides an endpoint which will kill the process. Check afterwards if Pivotal Cloud Foundry will properly restart it and route traffic to the healthy instances only.
+Now that we have two instances running, we might want to check if the automatic recovery i.e. restart works in case we kill one of the running instances. The spring-music application provides an endpoint, which will kill the process. Check afterwards if Pivotal Cloud Foundry will properly restart it and route traffic to the healthy instances only.
 
 Open your application in a web browser again (be sure to replace `something` with your random route) at 
 
@@ -121,7 +121,7 @@ Reload the app page to see activity. Press `control-c` to stop streaming.
 **Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
 
 ## Application Monitoring
-Besides the integrated health monitoring, the platform provides an agenletss app monitoring for container metrics as well as latency, number of requests, etc. You can access the latest version (beta) of Pivotal CF Metrics under https://metrics-new.run.pivotal.io (requires authentication with the same user you logged-in via CF CLI). Enter your application name in the search box e.g. spring-music-pna. Explore the current capabilities. Please note that you might need to access the app again to see metrics (ca. 3s delay).
+Besides the integrated health monitoring, the platform provides an agentless app monitoring for container metrics as well as latency, number of requests, etc. You can access the latest version (beta) of Pivotal CF Metrics under https://metrics-new.run.pivotal.io (requires authentication with the same user you logged-in via CF CLI). Enter your application name in the search box e.g. spring-music-pna. Explore the current capabilities. Please note that you might need to access the app again to see metrics (ca. 3s delay).
 
 ## Marketplace and Services
 
@@ -191,6 +191,11 @@ Please find below further information to get more familiar with Pivotal Cloud Fo
 * [Beyond the 12-Factor App](http://pivotal.io/beyond-the-twelve-factor-app)
 * [Cloud Foundry: The Cloud Native Platform](http://pivotal.io/cloud-foundry-the-cloud-native-platform)
 * [Migrating Legacy Applications to Cloud](http://pivotal.io/migrating-legacy-applications-to-cloud?utm_source=platform&utm_medium=text-link&utm_campaign=cloud-journey-ebook-migrate)
+
+### Spring Cloud Services
+Netflix OSS, Spring Cloud and Pivotal Cloud Foundry are a great way to build and manage your microservices architecture. [Spring Cloud Services](https://github.com/spring-cloud-samples/fortune-teller), available in the Marketplace, provide a Configuration Server powered by Spring Cloud Config, a Service Registry, powered by the battle-tested Netflix OSS Eureka server as well as a Circuit Breaker Dashboard, powered by the combination of Netflix OSS Turbine and Hystrix.
+
+A sample app using all of those services is the [fortune-teller](https://github.com/spring-cloud-samples/fortune-teller) available on github.
 
 ### User-Provided Services
 You might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
