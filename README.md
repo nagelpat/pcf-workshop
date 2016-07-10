@@ -100,9 +100,9 @@ http://spring-music-something.cfapps.io/errors/kill
 
 and you will see (`cf app spring-music-pna`) one application instance being restarted by the Elastic Runtime automatically. As you have two instances by now, the `http://spring-music-something.cfapps.io` (again, be sure to replace `something` with your random route) will still return your application as the traffic is only routed to healthy instances.
 
-## Log Aggregation
+## Application Logging
 
-PCF provides access to an aggregated view of logs related to you application. This includes HTTP access logs, as well as output from app operations such as scaling, restarting, and restaging.
+PCF provides access to an aggregated view of logs related to you application. This includes HTTP access logs, as well as output from app operations such as scaling, restarting, and restaging. Simply log to STDOUT or STDERR within your app and the logs will get picked up by the platform's log aggregation system.
 
 To view your recent logs use
 
@@ -119,6 +119,9 @@ $ cf logs spring-music-pna
 Reload the app page to see activity. Press `control-c` to stop streaming.
 
 **Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
+
+## Application Monitoring
+Besides the integrated health monitoring, the platform provides an agenletss app monitoring for container metrics as well as latency, number of requests, etc. You can access the latest version (beta) of Pivotal CF Metrics under https://metrics-new.run.pivotal.io (requires authentication with the same user you logged-in via CF CLI). Enter your application name in the search box e.g. spring-music-pna. Explore the current capabilities. Please note that you might need to access the app again to see metrics (ca. 3s delay).
 
 ## Marketplace and Services
 
@@ -176,11 +179,23 @@ mysql-db-pna     cleardb   spark   spring-music-pna
 
 **Hint:** We're using the [Pivotal Web Services](http://run.pivotal.io/), the public offering of Pivotal in this example. For your own installation of Pivotal Cloud Foundry (on VMware, Openstack, AWS, Azure, etc.), check out the [Pivotal Network](https://network.pivotal.io/) to see what Marketplace services are being available.
 
-## Additional Steps
+## Additional Steps and Content
+Please find below further information to get more familiar with Pivotal Cloud Foundry.
 
-If you’re done with this introduction, make sure you fully understand the principles of working with Pivotal Cloud Foundry. However if you want to, you might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+### Get hands-on with Pivotal CF
+* Create a free account on our [public cloud](http://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry/introduction)
+* Get PCF on your local workstation with [PCF Dev](http://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction) (single VM)
 
-This will let you create and bind a service provided by you to an app of your choice. If you have a Papertrail Account, try if you can bind this application to your app and see your logs there!
+### Free O'Reilly eBooks
+* [Migrating to Cloud Native Application Architectures](http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook)
+* [Beyond the 12-Factor App](http://pivotal.io/beyond-the-twelve-factor-app)
+* [Cloud Foundry: The Cloud Native Platform](http://pivotal.io/cloud-foundry-the-cloud-native-platform)
+* [Migrating Legacy Applications to Cloud](http://pivotal.io/migrating-legacy-applications-to-cloud?utm_source=platform&utm_medium=text-link&utm_campaign=cloud-journey-ebook-migrate)
+
+### User-Provided Services
+You might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+
+This will let you create and bind any service provided to an app of your choice. If you have a Papertrail Account, try if you can bind this application to your app and see your logs there.
 
 Hints: 
 
@@ -188,6 +203,6 @@ Hints:
 cf help cups
 ```
 
-will provide you with the syntax for binding a log aggragation service to your application.
+will provide you with the syntax for binding e.g. a log aggragation service to your application.
 
-More on this can be found at [User-Provided Service Instances](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+**Hint:** More on this can be found at [User-Provided Service Instances](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
