@@ -41,7 +41,7 @@ Password>  pass
 
 2) Push the application
 
-Please give the app a name to identify it later on. E.g. *spring-music-pna* wheras *pna* is derived from **P**atrik **Na**gel. Replace *my_app_name* below accordingly.
+Please give the app a name to identify it later on. E.g. *spring-music-pna* wheras *pna* is derived from **P**atrik **Na**gel. Replace *my_app_name* below accordingly, please.
 
 ```bash
 $ cf push my_app_name
@@ -60,6 +60,46 @@ urls: spring-music-pna-germproof-obedience.cfapps.io
 
 Congratulations! You have successfully pushed your first application to Pivotal Cloud Foundry!
 
+**Hint:** If you're wondering how the runtime to execute the Java app (Spring MVC) got built for you, have a look at the concept of [buildpacks](http://docs.pivotal.io/pivotalcf/1-7/buildpacks/index.html). More specifically, the [Java buildpack](https://github.com/cloudfoundry/java-buildpack). Cloud Foundry being a polyglot application platform (Java, node.js. ruby, php, go, python, etc.), you could also push a [docker image](http://docs.pivotal.io/pivotalcf/1-7/concepts/docker.html#push-docker).
+
+## Scaling the app
+
+As your application is running and gets more and more consumed by your customers, it’s time to scale.
+
+Scaling your app horizontally adds or removes app instances. Adding more instances allows your application to handle increased traffic and demand.
+
+Increase the number of app instances from one to two:
+
+```bash
+$ cf scale spring-music-pna -i 2
+```
+
+Check the status of the app and verify there are two instances running:
+
+```bash
+$ cf app spring-music-pna
+...
+state       since                  cpu  memory
+#0 running  2016-02-23 10:55:08 AM 0.1% 461M of 512M
+#1 running  2016-02-23 01:14:59 PM 0.0% 455.1M of 512M
+```
+
+**Hint:** Scaling is a matter of seconds, we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already.
+More on this can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
+
+If you access your application again via the web broswer, you will have a round robin load balancing across all your app instances automatically. Sceptical? Add `/env` to the URL and watch for `CF_INSTANCE_PORT` to change while you refresh.
+
+### Integrated Application Recovery (optional)
+
+Now that we have two instances running, we might want to check if the automatic recovery i.e. restart works if we kill one of the running instances. The spring-music application provides an endpoint which will kill the instance. Check afterwards if Pivotal Cloud Foundry will properly restart it and route traffic to healthy instances only.
+
+Open your application in a web browser again (be sure to replace `something` with your random route) at 
+
+```
+http://spring-music-something.cfapps.io/errors/kill
+```
+
+and you will see (`cf app spring-music-pna`) one application instance being restarted by the Elastic Runtime automatically. As you have two instances by now, the `http://spring-music-something.cfapps.io` (again, be sure to replace `something` with your random route) will still return your application as the traffic is only routed to healthy instances.
 
 ## Log Aggregation
 
@@ -77,9 +117,9 @@ or to stream them constantly (live) use
 $ cf logs spring-music
 ```
 
-Reload the app page to see activity. Press Control C to stop streaming.
+Reload the app page to see activity. Press `Control-C` to stop streaming.
 
-More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
+**Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
 
 ## Databases
 
@@ -134,58 +174,6 @@ spring-music-db  p-mysql   512mb   spring-music
 ```
 
 More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html)
-
-
-## Scaling the app
-
-As your application is running and gets more and more consumed by your customers, it’s time to scale your application to serve your app as needed.
-
-Scaling your app horizontally adds or removes app instances. Adding more instances allows your application to handle increased traffic and demand.
-
-Increase the number of app instances from one to two:
-
-```bash
-$ cf scale spring-music -i 2
-```
-
-Check the status of the app and verify there are two instances running:
-
-```bash
-$ cf app spring-music
-...
-state       since                  cpu  memory
-#0 running  2016-02-23 10:55:08 AM 0.1% 461M of 512M
-#1 running  2016-02-23 01:14:59 PM 0.0% 455.1M of 512M
-```
-
-Scaling your app vertically changes the disk space limit or memory limit for each app instance.
-
-Increase the memory limit for each app instance:
-
-```bash
-$ cf scale spring-music -m 1G
-```
-
-Increase the disk limit for each app instance:
-
-```bash
-$ cf scale spring-music -k 512M
-```
-
-More on this can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html)
-
-### Killing one instance (optional)
-
-Now that we have two instances running, we might want to check if the automatic restart works if we kill one instance. The spring-music application provides a route which will let you kill the instance, and check if Pivotal Cloud Foundry will properly restart it.
-
-Visit your application (be sure to replace `something` with your random route) at 
-
-```
-http://spring-music-something.cfapps.io/errors/kill
-```
-
-and you will see the application being restarted by the Elastic Runtime. As you have two instances by now, the `http://spring-music-something.cfapps.io` (again, be sure to replace `something` with your random route) should still return your application, only the killed instance will be restarted.
-
 
 ## Additional Steps
 
