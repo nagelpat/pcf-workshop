@@ -11,7 +11,7 @@ Download and install the Cloud Foundry Command Line Interface (CF CLI): [Downloa
 
 **Note:** If you don't have admin priviledges on your machine, [download](https://github.com/cloudfoundry/cli/releases) the appropriate binary.
 
-2) *Optional* Install and configure Java 7 (or later) https://java.com/en/download
+2) *Optional* install and configure Java 7 (or later) https://java.com/en/download
 
 ## Deploy the application to Cloud Foundry
 #### Option A - Clone from a github repository and build the artifact manually
@@ -30,7 +30,7 @@ If you don't have Git installed, you can download a zip file of the app at githu
 B-1) [Download](https://s3.eu-central-1.amazonaws.com/pnagel/workshop/spring-music.zip) the zip file and extract it. Then navigate to the App directory `cd ./spring-music`.
 
 #### Push die application to Cloud Foundry
-1) Login to Pivotal Web Services with the credentials given
+1) Login to [Pivotal Web Services](http://run.pivotal.io/) with the credentials given
 
 ```bash
 $ cf login -a https://api.run.pivotal.io
@@ -84,14 +84,13 @@ state       since                  cpu  memory
 #1 running  2016-02-23 01:14:59 PM 0.0% 455.1M of 512M
 ```
 
-**Hint:** Scaling is a matter of seconds, we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already.
-More on this can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
-
 If you access your application again via the web broswer, you will have a round robin load balancing across all your app instances automatically. Sceptical? Add `/env` to the URL and watch for `CF_INSTANCE_PORT` to change while you refresh.
 
-### Integrated Application Recovery (optional)
+**Hint:** Scaling is a matter of seconds, we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already. More on scaling can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
 
-Now that we have two instances running, we might want to check if the automatic recovery i.e. restart works if we kill one of the running instances. The spring-music application provides an endpoint which will kill the instance. Check afterwards if Pivotal Cloud Foundry will properly restart it and route traffic to healthy instances only.
+### Platform Integrated Application Recovery (optional)
+
+Now that we have two instances running, we might want to check if the automatic recovery i.e. restart works in case we kill one of the running instances. The spring-music application provides an endpoint which will kill the process. Check afterwards if Pivotal Cloud Foundry will properly restart it and route traffic to the healthy instances only.
 
 Open your application in a web browser again (be sure to replace `something` with your random route) at 
 
@@ -108,72 +107,72 @@ PCF provides access to an aggregated view of logs related to you application. Th
 To view your recent logs use
 
 ```bash
-$ cf logs spring-music --recent
+$ cf logs spring-music-pna --recent
 ```
 
-or to stream them constantly (live) use
+or to get the live stream use
 
 ```bash
-$ cf logs spring-music
+$ cf logs spring-music-pna
 ```
 
-Reload the app page to see activity. Press `Control-C` to stop streaming.
+Reload the app page to see activity. Press `control-c` to stop streaming.
 
 **Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
 
-## Databases
+## Marketplace and Services
 
-If  a database isn't available, the sample app uses a temporary in-memory database. This app supports MySQL, Postgres, Redis, and MongoDB.
+Pivotal Cloud Foundry has a concept of a marketplace where various services can be consumed as needed and bound to an app. The used spring-music application uses a temporary h2 in-memory database by default. However, it also supports MySQL, Postgres, Redis, and MongoDB as a datasource to manage the music albums.
 
-You can see what type of database this app is using by clicking the info icon in the upper right corner of your app.
+You can see what type of database the spring-music app is currently using by clicking the info icon in the upper right corner.
 
-In this step we’ll connect to a MySQL Database to allow persistence.
+In the next step we’ll connect to a MySQL database to allow persistence.
 
 ### Listing Plans
 
-Pivotal Cloud Foundry has a built-in marketplace where you may obtain services as needed. To display available services use
+Display the available services from the built-in marketplace.
 
 ```bash
 $ cf marketplace
 ```
 
-As we want to use a MySQL Database, let’s display which plans are available.
+As we want to use a MySQL database, let’s display which plans are available.
 
 ```bash
-$ cf marketplace -s p-mysql
+$ cf marketplace -s cleardb
 ```
 
-We’ll create a service using the free plan for MySQL.
+We’ll create a service using the **free** plan for MySQL. Please use again a unique identifier for the service instance name (*mysql-db-pna*). 
 
 ```bash
-$ cf create-service p-mysql 512mb my-spring-db
+$ cf create-service cleardb spark mysql-db-pna
 ```
 
-To make the credentials available to the application we pushed, we need to bind this service to the application.
+To make the credentials available to the application we pushed, we need to bind this service to the application. This injects the credentials and connection information into the app via environment variables.
 
 ```bash
-$ cf bind-service spring-music my-spring-db
+$ cf bind-service spring-music-pna mysql-db-pna
 ```
 
-Once this this bound to the app, environment variables are stored that allow the app to connect to the service after a push, restage or restart command.
+Once bound to the app, environment variables are stored that allow the app to connect to the service after a push, restage or restart command.
 
 Let’s restart the app.
 
 ```bash
-$ cf restart spring-music
+$ cf restart spring-music-pna
 ```
 
-To verify the new service is bound to the app, you can either click on the top right info icon in the upper right corner of the sample app or check using this command:
+To verify the new service is bound to the app, you can either click on the info icon in the upper right corner of the app or check using this command:
 
 ```bash
 $ cf services
 Getting services in org your-org / space development ...
 OK
 name             service   plan    bound apps
-spring-music-db  p-mysql   512mb   spring-music
+mysql-db-pna     cleardb   spark   spring-music-pna
 ```
 
-More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html)
+**Hint:** More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html). Please note that the marketplace is extensible by your own services.
 
 ## Additional Steps
 
