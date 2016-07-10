@@ -2,25 +2,35 @@
 
 ## Goals
 
-To deploy and configure a microservice, leverage the platform for monitoring & management of the microservice, and to create services that will be bound to the application.
+To deploy and configure a microservice, leverage the platform for scaling, monitoring & management, and create services that will be bound to the deployed application.
 
 ## Prerequisites
 
 1) Install the CF CLI
-Download and install the Cloud Foundry Command Line Interface (cf CLI): [Download](https://github.com/cloudfoundry/cli#downloads) and make sure it works: `cf help`
+Download and install the Cloud Foundry Command Line Interface (CF CLI): [Download](https://github.com/cloudfoundry/cli#downloads) and make sure it works: `cf help`
 
-2) Make sure you have Java 7 (or later) installed and configured [Java](https://java.com/en/download/)
+**Note:** If you don't have admin priviledges on your machine, [download](https://github.com/cloudfoundry/cli/releases) the appropriate binary.
 
-## Deploy the application
+2) *Optional* Install and configure Java 7 (or later) https://java.com/en/download
 
-1) Clone the sample application 
+## Deploy the application to Cloud Foundry
+#### Option A - Clone from a github repository and build the artifact manually
+A-1) Clone the sample application 
 ```
 $ git clone https://github.com/cloudfoundry-samples/spring-music
 ```
+A-2) Use Gradle to assemble the app locally:
 
+```bash
+./gradlew assemble
+```
 If you don't have Git installed, you can download a zip file of the app at github.com/cloudfoundry-samples/spring-music/archive/master.zip. Then navigate to the App directory `cd ./spring-music`.
 
-2) Login to Pivotal Web Services with the credentials given
+#### Option B - Download the prebuilt artifact
+B-1) [Download](https://s3.eu-central-1.amazonaws.com/pnagel/workshop/spring-music.zip) the zip file and extract it. Then navigate to the App directory `cd ./spring-music`.
+
+#### Push die application to Cloud Foundry
+1) Login to Pivotal Web Services with the credentials given
 
 ```bash
 $ cf login -a https://api.run.pivotal.io
@@ -29,19 +39,24 @@ Email>     user
 Password>  pass
 ```
 
-3) Use Gradle to assemble the app locally:
+2) Push the application
+
+Please give the app a name to identify it later on. E.g. *spring-music-pna* wheras *pna* is derived from **P**atrik **Na**gel. Replace *my_app_name* below accordingly.
 
 ```bash
-./gradlew assemble
+$ cf push my_app_name
 ```
 
-4) Push the application
-
+3) Get the url from the response given on the commandline and open the sample app in your browser.
 ```bash
-$ cf push
-```
+requested state: started
+instances: 1/1
+usage: 1G x 1 instances
+urls: spring-music-pna-germproof-obedience.cfapps.io
 
-5) Get the url from the response given on the commandline and open the sample app in your browser.
+     state     since                    cpu    memory         disk           details
+#0   running   2016-07-10 09:49:06 AM   0.0%   426.7M of 1G   155.3M of 1G
+```
 
 Congratulations! You have successfully pushed your first application to Pivotal Cloud Foundry!
 
