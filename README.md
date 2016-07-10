@@ -175,12 +175,12 @@ name             service   plan    bound apps
 mysql-db-pna     cleardb   spark   spring-music-pna
 ```
 
-## Developer Console - GUI
-Besides the `CF CLI`, you can access and manage your application via a GUI called Apps Manager. Explore the capabilites, access your app and review its events, browse the Marketplace etc. Access the Apps Manager at https://console.run.pivotal.io and login with the same credentials used for the authentication via `CF CLI`.
-
 **Hint:** More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html). Please note that the marketplace is extensible by your own services.
 
 **Hint:** We're using the [Pivotal Web Services](http://run.pivotal.io/), the public offering of Pivotal in this example. For your own installation of Pivotal Cloud Foundry (on VMware, Openstack, AWS, Azure, etc.), check out the [Pivotal Network](https://network.pivotal.io/) to see what Marketplace services are being available.
+
+## Developer Console - GUI
+Besides the `CF CLI`, you can access and manage your application via a GUI called Apps Manager. Explore the capabilites, access your app and review its events, browse the Marketplace etc. Access the Apps Manager at https://console.run.pivotal.io and login with the same credentials used for the authentication via `CF CLI`.
 
 ## Additional Steps and Content
 Please find below further information to get more familiar with Pivotal Cloud Foundry.
