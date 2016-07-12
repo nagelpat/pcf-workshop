@@ -11,6 +11,8 @@ Download and install the Cloud Foundry Command Line Interface (CF CLI): [Downloa
 
 **Note:** If you don't have admin privileges on your machine, [download](https://github.com/cloudfoundry/cli/releases) the appropriate binary.
 
+2) Register a free account on the [Cloud Foundry public cloud](http://run.pivotal.io/) of Pivotal called PWS (**P**ivotal **W**eb **S**ervices)
+
 2) *Optional* install and configure Java 7 (or later) https://java.com/en/download
 
 ## Deploy the application to Cloud Foundry
