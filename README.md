@@ -22,9 +22,10 @@ $ git clone https://github.com/cloudfoundry-samples/spring-music
 A-2) Use Gradle to assemble the app locally:
 
 ```bash
+cd ./spring-music
 ./gradlew assemble
 ```
-If you don't have Git installed, you can download a zip file of the app at github.com/cloudfoundry-samples/spring-music/archive/master.zip. Then navigate to the App directory `cd ./spring-music`.
+If you don't have Git installed, you can download a zip file of the app at https://github.com/cloudfoundry-samples/spring-music/archive/master.zip. Then navigate to the App directory `cd ./spring-music`.
 
 #### Option B - Download the prebuilt artifact
 B-1) [Download](https://s3.eu-central-1.amazonaws.com/pnagel/workshop/spring-music.zip) the zip file and extract it. Then navigate to the App directory `cd ./spring-music`.
