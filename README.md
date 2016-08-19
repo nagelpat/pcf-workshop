@@ -32,7 +32,7 @@ If you don't have Git installed, you can download a zip file of the app at https
 #### Option B - Download the prebuilt artifact
 B-1) [Download](https://s3.eu-central-1.amazonaws.com/pnagel/workshop/spring-music.zip) the zip file and extract it. Then navigate to the App directory `cd ./spring-music`.
 
-#### Push die application to Cloud Foundry
+#### Push the application to Cloud Foundry
 1) Login to [Pivotal Web Services](http://run.pivotal.io/) with the credentials given
 
 ```bash
