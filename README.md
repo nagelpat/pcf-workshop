@@ -63,7 +63,7 @@ urls: spring-music-pna-germproof-obedience.cfapps.io
 
 Congratulations! You have successfully pushed your first application to Pivotal Cloud Foundry!
 
-**Hint:** If you're wondering how the runtime to execute the Java app (Spring MVC) got built for you, have a look at the concept of [buildpacks](http://docs.pivotal.io/pivotalcf/1-7/buildpacks/index.html). More specifically, the [Java buildpack](https://github.com/cloudfoundry/java-buildpack). Cloud Foundry being a polyglot application platform (Java, node.js. ruby, php, go, python, etc.), you could also push a [docker image](http://docs.pivotal.io/pivotalcf/1-7/concepts/docker.html#push-docker).
+**Hint:** If you're wondering how the runtime to execute the Java app (Spring MVC) got built for you, have a look at the concept of [buildpacks](http://docs.pivotal.io/pivotalcf/1-9/buildpacks/index.html). More specifically, the [Java buildpack](https://github.com/cloudfoundry/java-buildpack). Cloud Foundry being a polyglot application platform (Java, node.js. ruby, php, go, python, etc.), you could also push a [docker image](http://docs.pivotal.io/pivotalcf/1-9/concepts/docker.html#push-docker).
 
 ## Scaling the app
 
@@ -89,7 +89,7 @@ state       since                  cpu  memory
 
 If you access your application again via the web browser, you will have a round robin load balancing across all your app instances automatically. Skeptical? Add `/env` to the URL and watch for `CF_INSTANCE_PORT` to change while you refresh.
 
-**Hint:** Scaling is a matter of seconds; we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already. More on scaling can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/cf-scale.html).
+**Hint:** Scaling is a matter of seconds; we don't need to re-stage the app. The original staged artifact called droplet has been stored on the platform's internal blob store already. More on scaling can be found at [Scaling an Application](http://docs.pivotal.io/pivotalcf/1-9/devguide/deploy-apps/cf-scale.html).
 
 ### Platform Integrated Application Recovery (optional)
 
@@ -121,10 +121,10 @@ $ cf logs spring-music-pna
 
 Reload the app page to see activity. Press `control-c` to stop streaming.
 
-**Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/streaming-logs.html)
+**Hint:** More on logs can be found at [Streaming Logs](http://docs.pivotal.io/pivotalcf/1-9/devguide/deploy-apps/streaming-logs.html)
 
 ## Application Monitoring
-Besides the integrated health monitoring, the platform provides an agentless app monitoring for container metrics as well as latency, number of requests, etc. You can access the latest version (beta) of Pivotal CF Metrics under https://metrics-new.run.pivotal.io (requires authentication with the same user you logged-in via CF CLI). Enter your application name in the search box e.g. spring-music-pna. Explore the current capabilities. Please note that you might need to access the app again to see metrics (ca. 3s delay).
+Besides the integrated health monitoring, the platform provides an agentless app monitoring for container metrics as well as latency, number of requests, etc. You can access the latest version (beta) of Pivotal CF Metrics under https://metrics.run.pivotal.io (requires authentication with the same user you logged-in via CF CLI). Enter your application name in the search box e.g. spring-music-pna. Explore the current capabilities. Please note that you might need to access the app again to see metrics (ca. 3s delay).
 
 ## Marketplace and Services
 
@@ -178,7 +178,7 @@ name             service   plan    bound apps
 mysql-db-pna     cleardb   spark   spring-music-pna
 ```
 
-**Hint:** More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/managing-services.html). Please note that the marketplace is extensible by your own services.
+**Hint:** More on services can be found at [Managing Services](http://docs.pivotal.io/pivotalcf/1-9/devguide/services/managing-services.html). Please note that the marketplace is extensible by your own services.
 
 **Hint:** We're using the [Pivotal Web Services](http://run.pivotal.io/), the public offering of Pivotal in this example. For your own installation of Pivotal Cloud Foundry (on VMware, Openstack, AWS, Azure, etc.), check out the [Pivotal Network](https://network.pivotal.io/) to see what Marketplace services are being available.
 
@@ -201,10 +201,10 @@ Please find below further information to get more familiar with Pivotal Cloud Fo
 ### Spring Cloud Services
 Netflix OSS, Spring Cloud and Pivotal Cloud Foundry are a great way to build and manage your microservices architecture. [Spring Cloud Services](https://github.com/spring-cloud-samples/fortune-teller), available in the Marketplace, provide a Configuration Server powered by Spring Cloud Config, a Service Registry, powered by the battle-tested Netflix OSS Eureka server as well as a Circuit Breaker Dashboard, powered by the combination of Netflix OSS Turbine and Hystrix.
 
-A sample app using all of those services is the [fortune-teller](https://github.com/spring-cloud-samples/fortune-teller) available on github.
+A sample app using all of those services is the [fortune-teller](https://github.com/spring-cloud-services-samples/fortune-teller) available on github.
 
 ### User-Provided Services
-You might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+You might want to check out [User Provided Services](http://docs.pivotal.io/pivotalcf/1-9/devguide/services/user-provided.html)
 
 This will let you create and bind any service provided to an app of your choice. If you have a Papertrail Account, try if you can bind this application to your app and see your logs there.
 
