@@ -216,4 +216,4 @@ cf help cups
 
 will provide you with the syntax for binding e.g. a log aggragation service to your application.
 
-**Hint:** More on this can be found at [User-Provided Service Instances](http://docs.pivotal.io/pivotalcf/1-7/devguide/services/user-provided.html)
+**Hint:** More on this can be found at [User-Provided Service Instances](http://docs.pivotal.io/pivotalcf/1-9/devguide/services/user-provided.html)
